@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    options {
-    ansiColor('xterm')
-    }
     parameters {
         string(defaultValue: "tomcat", description: 'ECS Service Name for tomcat', name: 'service_name')
         string(defaultValue: "latest", description: 'Required Tag Name', name: 'tag')
