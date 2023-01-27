@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    options {
+    ansiColor('xterm')
+    }
+    parameters {
+        string(defaultValue: "tomcat", description: 'ECS Service Name for tomcat', name: 'service_name')
+        string(defaultValue: "latest", description: 'Required Tag Name', name: 'tag')
+    }
+    stages {
+        stage("Create Image for tomcat") {
+                steps {
+                        sh ('cd tomcat/ && docker build --no-cache -t shashikanthk/tomcat:$tag .')
+		}
+        }
+       stage("Push Image for tomcat to Docker hub registry") {
+                steps {
+                        sh "docker push shashikanthk/tomcat:$tag"
+                }
+       }
+    }
+}
+
